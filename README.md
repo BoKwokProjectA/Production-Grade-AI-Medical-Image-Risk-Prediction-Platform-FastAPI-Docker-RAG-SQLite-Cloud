@@ -274,4 +274,4 @@ SECRET_KEY=change-this-in-google-cloud-run
 
 ## ⚠️ Medical Disclaimer
 
-This project is a portfolio and research-engineering demonstration based on the ISIC 2024 Skin Cancer Detection Challenge. It is not a medical device and should not be used as a substitute for professional medical diagnosis, treatment, or clinical decision-making.
+This project is for educational and research purposes only. It is intended only to demonstrate AI-assisted initial screening support. It is not a medical device and should not be used for diagnosis, treatment, or clinical decision-making. Please consult a qualified healthcare professional for further evaluation.
