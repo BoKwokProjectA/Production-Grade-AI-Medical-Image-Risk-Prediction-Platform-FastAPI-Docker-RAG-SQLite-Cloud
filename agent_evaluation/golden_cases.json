@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "question": "How does the prediction endpoint work?",
+    "expected_answer": "You send a POST request to /api/v1/predict with an image file. The API returns a probability score for malignant risk and a benign/malignant label."
+  },
+  {
+    "id": 2,
+    "question": "How do I upload an image?",
+    "expected_answer": "Use the /predict endpoint in Swagger or with a tool like curl/Postman. Select an image file in the form-data field named 'file'."
+  },
+  {
+    "id": 3,
+    "question": "What does the probability mean?",
+    "expected_answer": "It is the model's estimated risk that the lesion is malignant (0.0 = very safe, 1.0 = high risk). We use a simple average from two vision models."
+  },
+  {
+    "id": 4,
+    "question": "How do I troubleshoot a failed upload?",
+    "expected_answer": "Check that the file is a valid image (jpg/png) and under 5MB. The API returns a clear error message if something is wrong."
+  },
+  {
+    "id": 5,
+    "question": "How is the model governed?",
+    "expected_answer": "We follow a basic action tier model. Medical interpretation is prohibited. Only technical questions about the API are answered automatically."
+  },
+  {
+    "id": 6,
+    "question": "What are the medical safety limitations?",
+    "expected_answer": "This is NOT a medical diagnosis tool. Any prediction is for demonstration only. Always consult a qualified dermatologist."
+  }
+]
