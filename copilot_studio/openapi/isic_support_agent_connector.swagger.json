@@ -1,0 +1,110 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "ISIC Support Agent Connector",
+    "description": "Connector used by Copilot Studio to call the Skin Lesion Platform support endpoint.",
+    "version": "1.0.0"
+  },
+  "host": "isic-api-918647643601.europe-west2.run.app",
+  "basePath": "/api/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/agent/health": {
+      "get": {
+        "summary": "Check support agent health",
+        "operationId": "CheckSupportAgentHealth",
+        "responses": {
+          "200": {
+            "description": "Agent health response",
+            "schema": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "/agent/support": {
+      "post": {
+        "summary": "Ask the Skin Lesion Platform Support Agent",
+        "operationId": "AskSkinLesionPlatformSupportAgent",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CopilotSupportRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Support answer",
+            "schema": {
+              "$ref": "#/definitions/CopilotSupportResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CopilotSupportRequest": {
+      "type": "object",
+      "required": [
+        "question"
+      ],
+      "properties": {
+        "question": {
+          "type": "string",
+          "description": "Technical support question from the user."
+        },
+        "conversation_id": {
+          "type": "string",
+          "description": "Optional conversation ID from Copilot Studio."
+        },
+        "user_role": {
+          "type": "string",
+          "description": "Optional user role."
+        }
+      }
+    },
+    "CopilotSupportResponse": {
+      "type": "object",
+      "properties": {
+        "answer": {
+          "type": "string"
+        },
+        "intent": {
+          "type": "string"
+        },
+        "risk_level": {
+          "type": "string"
+        },
+        "automation_allowed": {
+          "type": "boolean"
+        },
+        "escalation_required": {
+          "type": "boolean"
+        },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "safety_note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
