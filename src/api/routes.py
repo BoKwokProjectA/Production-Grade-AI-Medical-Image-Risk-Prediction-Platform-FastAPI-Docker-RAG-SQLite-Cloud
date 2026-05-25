@@ -29,9 +29,9 @@ async def health_check():
 
 
 @prediction_router.post(
-    "/predict",
+    "/Predict",
     response_model=PredictionResponse,
-    summary="Predict skin lesion risk",
+    summary="Expand the block to predict skin lesion risk",
     description="""
 Upload a skin lesion image and receive a malignant-risk prediction.
 
