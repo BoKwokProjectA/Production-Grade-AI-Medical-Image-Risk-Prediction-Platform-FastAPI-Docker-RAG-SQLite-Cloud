@@ -65,7 +65,7 @@ docker/                   # Docker-related deployment assets
 prompts/                  # Prompt versions and review checklist for assistant safety
 governance/               # AI safety and governance documentation
 agent_evaluation/         # Golden cases, hallucination checks, and safety tests
-automation/               # Power Automate workflow notes and integration assets
+power_automate/               # Power Automate workflow notes and integration assets
 ```
 
 ## Tech Stack
@@ -136,7 +136,7 @@ This ensemble approach provides a good balance between accuracy and inference sp
 
 **Copilot Support Schemas:** CopilotSupportRequest validates question, conversation_id, and user_role; CopilotSupportResponse returns answer, intent, risk_level, automation_allowed, escalation_required, sources, and safety_note.
 
-**Support Service Intent Routing:** Copilot Support Service classifies requests as api_support, and image_upload_support.
+**Support Service Intent Routing:** Copilot Support Service classifies support requests into technical intent categories such as `api_support`, `image_upload_support`, `failed_upload_support`, `prediction_explanation`, `governance`, `general_platform_support`, and `medical_advice`. Medical-advice intent is treated as prohibited and redirected to a qualified clinician rather than answered directly through Microsoft Power Automate.
 
 ### Intelligent RAG Assistant
 
@@ -302,7 +302,7 @@ The project includes a Power Platform custom connector and Copilot Studio techni
 
 The automation layer is presented as practical AI workflow automation around the backend. It does not automate medical diagnosis, treatment advice, or clinical decision-making.
 
-**Copilot Studio setup:** create an agent named Skin Lesion Platform AI Agent, describe it as technical support only, add the knowledge source, import the custom connector, add the support action, add the three support topics, run the manual tests, and publish only after safety checks pass.
+**Copilot Studio setup:** create an agent named Skin Lesion Platform AI Agent, describe it as technical support only, add the knowledge source, import the custom connector, add the support action, add the six support topics, run the manual tests, and publish only after safety checks pass.
 
 The Copilot Studio agent has been activated in the live demo website, allowing users to interact with the support agent through an embedded web chat interface. This demonstrates a working end-user AI support layer on top of the deployed FastAPI backend and Power Platform integration.
 
@@ -353,11 +353,11 @@ POWER_AUTOMATE_URL=your-power-automate-webhook-url
 
 ## Copilot Studio Knowledge Sources and Topics
 
-The Copilot Studio notebook creates these topic files under copilot_studio/topics/: upload_image.md, prediction_endpoint.md, and medical_safety.md.
+The Copilot Studio notebook creates these six topic files under copilot_studio/topics/: upload_image.md, prediction_endpoint.md, probability.md, failed_upload.md, governance.md, and medical_safety.md.
 
 Required/target knowledge documents include README.md, prompts/v1_system_prompt.md, prompts/v2_safety_prompt.md, prompts/prompt_changelog.md, governance/action_tier_model.md, governance/classification_canon.md, governance/human_in_the_loop_policy.md, governance/medical_ai_safety_policy.md, and governance/security_architecture.md.
 
-knowledge pack packaging copied README.md, Copilot Studio README/setup/topic files, prompt files, and governance files into copilot_studio/knowledge_pack/.
+knowledge pack packaging copied README.md, Copilot Studio README/setup/topic files, prompt files, and governance files into copilot_studio/sharepoint_knowledge_pack/.
 
 ## Evaluation and Safety Artefacts
 
