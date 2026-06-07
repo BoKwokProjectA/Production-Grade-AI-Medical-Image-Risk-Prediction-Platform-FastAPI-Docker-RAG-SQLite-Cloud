@@ -1,4 +1,9 @@
 # Production-Grade AI Medical Image Risk Prediction Platform with FastAPI, Docker, RAG Assistant, Microsoft Copilot Studio AI Agent, SharePoint Knowledge Source, Microsoft Power Automate Workflow Automation, SQLAlchemy, Real-Time ML Inference, and MLOps-Oriented Google Cloud Run Deployment
+
+[![CI](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/ci.yml/badge.svg)](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/ci.yml)
+[![Docker Build Smoke Test](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/docker-build.yml/badge.svg)](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/docker-build.yml)
+[![Deploy to Cloud Run](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/deploy-cloud-run.yml/badge.svg)](https://github.com/BoKwokProjectA/Production-Grade-AI-Medical-Image-Risk-Prediction-Platform-FastAPI-Docker-RAG-SQLite-Cloud/actions/workflows/deploy-cloud-run.yml)
+
 ## Overview
 
 This project turns an ISIC 2024 skin cancer detection research workflow into a deployed, production-style machine learning API.
@@ -30,6 +35,7 @@ Deployment note: this project is deployed with Docker on Google Cloud Run. The A
 - Built upon the 1st/2nd place winning solution concept of the ISIC 2024 Skin Cancer Detection Challenge
 - Transformed a Kaggle / notebook-based workflow into a production-oriented backend system
 - Deployed a working FastAPI API on Google Cloud Run with Docker
+- Added a GitHub Actions CI/CD pipeline with Ruff linting, Black formatting checks, pytest endpoint tests, Docker image build smoke testing, and automated Google Cloud Run source deployment with a live post-deployment health check.
 - Integrated a two-model production inference backend using ConvNeXt + EVA-02
 - Added real image upload support for malignant/benign skin lesion risk prediction
 - Built a retrieval-based RAG assistant for project/codebase technical Q&A
@@ -349,7 +355,34 @@ gcloud run deploy isic-api \
   --project isic-flagship-project
 ```
 
-Note: This project currently uses Cloud Run source deployment. A fully automated CI/CD pipeline, such as GitHub Actions or Cloud Build triggers on every Git push, is not claimed in this README.
+## CI/CD with GitHub Actions
+
+This repository includes a basic portfolio-grade CI/CD pipeline using GitHub Actions.
+
+The CI workflow runs on push and pull request events. It installs dependencies, runs Ruff linting, checks Black formatting, and executes pytest tests using dummy environment variables so CI does not call real OpenAI APIs, Power Automate webhooks, or production secrets.
+
+The Docker workflow builds the FastAPI Docker image, starts the container inside GitHub Actions, and smoke-tests the `/api/v1/health` endpoint to confirm the container can run successfully.
+
+The deployment workflow deploys automatically to Google Cloud Run after the Docker smoke test succeeds on `main`. It uses Cloud Run source deployment:
+
+```bash
+gcloud run deploy isic-api --source .
+```
+
+This means the GitHub Actions workflow does not explicitly build, tag, or publish a Docker image to Artifact Registry. Google Cloud Build builds the service from source for Cloud Run.
+
+For cost control, the automated deployment is configured with `--min-instances 0` and `--max-instances 1`. The workflow finishes with a live post-deployment health check against `/api/v1/health`.
+
+CI test coverage includes:
+
+* FastAPI app import test
+* `/api/v1/health` endpoint test
+* Invalid image upload rejection test
+* Basic RAG assistant endpoint test
+* Copilot/support-agent medical safety refusal test
+
+This CI/CD setup supports a valid portfolio claim of automated testing, Docker smoke testing, and Cloud Run deployment for a FastAPI AI inference API. The project remains a portfolio AI engineering demo and is not a clinical diagnostic product, not a medical device, and not intended for diagnosis, treatment, or clinical decision-making.
+
 
 ## Environment Variables
 
@@ -426,6 +459,7 @@ These files demonstrate that the project considers:
 
 - Transformed an ISIC 2024-inspired notebook workflow into a deployed ML inference API
 - Deployed a working FastAPI backend on Google Cloud Run with Docker
+- Implemented GitHub Actions CI/CD with Ruff, Black, pytest, Docker container smoke testing, and automated Google Cloud Run source deployment.
 - Integrated ConvNeXt + EVA-02 as the implemented production model ensemble
 - Added real image upload inference and interactive Swagger/OpenAPI documentation
 - Added a retrieval-based RAG assistant using FAISS and Sentence Transformers
