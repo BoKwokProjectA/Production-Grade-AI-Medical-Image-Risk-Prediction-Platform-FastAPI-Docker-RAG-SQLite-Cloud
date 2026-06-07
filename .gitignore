@@ -3,3 +3,14 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 *.gdoc
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python cache / test cache
+__pycache__/
+.pytest_cache/
+*.pyc
+.coverage
